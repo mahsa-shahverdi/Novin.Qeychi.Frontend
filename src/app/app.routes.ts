@@ -6,6 +6,8 @@ import { PublicLoginComponent } from './+pages/public/public-login/public-login.
 import { PublicRegisterComponent } from './+pages/public/public-register/public-register.component';
 import { ProfileComponent } from './+pages/private/profile/profile.component';
 import { HomeComponent } from './+pages/public/home/home.component';
+import { AssistComponent } from './+pages/public/assist/assist.component';
+import { SupportComponent } from './+pages/public/support/support.component';
 import { NotFoundComponent } from './+pages/public/not-found/not-found.component';
 
 export const routes: Routes = [
@@ -16,6 +18,8 @@ export const routes: Routes = [
   {path:'public-register', component:PublicRegisterComponent},
   {path:'profile', component:ProfileComponent},
   {path:'home', component:HomeComponent},
+  {path:'assist', component:AssistComponent},
+  {path:'support', component:SupportComponent},
   {path:'not-found', component:NotFoundComponent},
   {path:'', redirectTo:'/home', pathMatch:'full'},
   {path:'**', redirectTo:'/not-found'}
