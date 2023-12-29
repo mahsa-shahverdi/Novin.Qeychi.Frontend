@@ -34,7 +34,7 @@
       </mat-form-field>
     </div>
     <div class="click">
-      <button mat-raised-button color="accent" (click)="signin()" [disabled]="busy" >ورود</button>
+      <button mat-raised-button color="accent" (click)="check()" [disabled]="busy" >ورود</button>
       <button mat-raised-button color="primary" (click)="signup()" [disabled]="busy">ثبت نام</button>
     </div>
     @if(busy){
@@ -42,6 +42,8 @@
         <mat-progress-bar mode="buffer" style="margin-top: 20px;"></mat-progress-bar>
       </div>
     }
-    <div class="message">{{message}}</div>
+    @if(message){
+      <div class="message">{{message}}</div>
+    }
   </form>
 </div>

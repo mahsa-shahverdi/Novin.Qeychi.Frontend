@@ -6,9 +6,10 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { catchError, of } from 'rxjs';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -56,17 +57,31 @@ export class AdminLoginComponent {
   }
 
   signup(){
-    this.rout.navigate(['/public-register']);
+    this.rout.navigate(['/admin-register']);
   }
 
-  signin(){
+  check(){
+    this.message='';
     this.busy=true;
     this.http.post('https://localhost:7094/adminLogin',
     {username:this.mobileFormControl.value, password:this.passwordFormControl.value})
+    .pipe(catchError((err:HttpErrorResponse)=>{
+      if (!err.ok && err.status==500) {
+        return of({
+          isOk:false,
+          message:err.error.errorMessage
+        })
+      }
+      return of({
+        isOk:false,
+        message:'ارتباط با سرویس دهنده برقرار نیست'
+      })
+    }))
     .subscribe(result=>{
       if((result as any).isOk){
         sessionStorage.setItem('token',(result as any).token);
       }
+      this.message=(result as any).message;
       this.busy=false;
     })
   }
