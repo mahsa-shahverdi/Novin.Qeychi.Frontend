@@ -1,1 +1,47 @@
-<p>admin-login works!</p>
+<div class="full">
+  <form class="main">
+    <div class="detail">
+      <mat-form-field>
+        <mat-label>شماره موبایل</mat-label>
+        <input matInput type="text" [formControl]="mobileFormControl"
+        [errorStateMatcher]="matcher" (keypress)="checkKeyNumber($event)" (focus)="clean()">
+        <mat-icon matSuffix>phone</mat-icon>
+        <!-- @if(mobileFormControl.touched && mobileFormControl.hasError('pattern')){
+          <mat-error>
+            شماره وارد شده صحیح نیست.
+          </mat-error>
+        }
+        @if(mobileFormControl.hasError('required')){
+          <mat-error>
+            شماره ی موبایل خود را وارد نمایید.
+          </mat-error>
+        } -->
+      </mat-form-field>
+    </div>
+    <div class="detail">
+      <mat-form-field>
+        <mat-label>رمز عبور</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" [formControl]="passwordFormControl"
+        [errorStateMatcher]="matcher" (focus)="clean()">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <!-- @if(passwordFormControl.hasError('required')){
+          <mat-error>
+            رمز عبور خود را وارد نمایید.
+          </mat-error>
+        } -->
+      </mat-form-field>
+    </div>
+    <div class="click">
+      <button mat-raised-button color="accent" (click)="signin()" [disabled]="busy" >ورود</button>
+      <button mat-raised-button color="primary" (click)="signup()" [disabled]="busy">ثبت نام</button>
+    </div>
+    @if(busy){
+      <div class="progress">
+        <mat-progress-bar mode="buffer" style="margin-top: 20px;"></mat-progress-bar>
+      </div>
+    }
+    <div class="message">{{message}}</div>
+  </form>
+</div>

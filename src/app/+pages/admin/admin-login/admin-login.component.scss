@@ -1,0 +1,14 @@
+.main{
+  position:absolute;
+}
+.click{
+  display: grid;
+  grid-template-columns: auto auto;
+  column-gap: 10px;
+}
+.message{
+  font-size: small;
+  color: red;
+  margin-top: 10px;
+  text-align: center;
+}
